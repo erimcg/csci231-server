@@ -14,7 +14,7 @@ router.get("/user",auth,async (req,res)=>{
 router.post("/user_old",async (req,res)=>{
     try{
         const data = req.body;
-        console.log(data);
+        console.log(JSON.stringify(req));
 
         let user = new User(data);
 
@@ -46,6 +46,7 @@ router.post("/user_old",async (req,res)=>{
 
 router.post("/user",async (req,res)=>{
     try{
+        console.log(req.body)
         const user = new User(req.body);
         await user.save();
 
