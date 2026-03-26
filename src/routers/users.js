@@ -14,7 +14,6 @@ router.get("/user",auth,async (req,res)=>{
 router.post("/user_old",async (req,res)=>{
     try{
         const data = req.body;
-        console.log(JSON.stringify(req));
 
         let user = new User(data);
 
@@ -71,7 +70,7 @@ router.post("/user",async (req,res)=>{
 
 router.post("/user/login",async (req,res)=>{
     try{
-        console.log(req)
+        console.log(req.body)
         let user = await User.findOne({ username: req.body.username });
 
         if(!user){
