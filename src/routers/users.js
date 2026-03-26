@@ -45,7 +45,6 @@ router.post("/user_old",async (req,res)=>{
 
 router.post("/user",async (req,res)=>{
     try{
-        console.log(req)
         console.log(req.body)
         const user = new User(req.body);
         await user.save();
