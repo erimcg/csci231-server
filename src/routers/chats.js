@@ -239,7 +239,7 @@ router.post("/chat/:chatId/message", auth, async (req, res) => {
         }
 
         // send the message
-        let lastBucketId = chat.message_buckets[chat.message_buckets.length - 1];
+        let lastBucketId = chat.message_buckets[0];
         let lastBucket;
 
         const createNewBucket = async () => {
@@ -293,7 +293,7 @@ router.post("/chat/:chatId/message", auth, async (req, res) => {
         await lastBucket.save();
         await chat.save();
 
-        res.status(200).send(lastBucket.messages[lastBucket.messages.length - 1]);
+        res.status(200).send(lastBucket.messages[0]);
 
     }
     catch (err) {
