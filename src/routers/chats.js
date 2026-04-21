@@ -264,7 +264,7 @@ router.post("/chat/:chatId/message", auth, async (req, res) => {
             const bucket = await MessageBucketModel.findById(lastBucketId);
             if (!bucket) {
                 // TODO: lastBucketId is invalid - remove from chat.message_buckets
-                
+
                 // make a new bucket
                 await createNewBucket();
             }
@@ -344,12 +344,11 @@ router.get("/chat/:chatId/messages", auth, async (req, res) => {
             });
         }
 
-        let limit = req.query.limit ? parseInt(req.query.limit) : 10;
-
-        pipeline.append({
-            $limit: limit
-        });
-
+        if (req.query.limit) {
+            pipeline.append({
+                $limit: limit
+            });
+        }
     }
     catch (err) {
         console.log(err);
