@@ -346,7 +346,7 @@ router.get("/chat/:chatId/messages", auth, async (req, res) => {
 
         if (req.query.limit) {
             pipeline.append({
-                $limit: limit
+                $limit: parseInt(req.query.limit)
             });
         }
     }
