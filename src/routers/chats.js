@@ -252,7 +252,7 @@ router.post("/chat/:chatId/message", auth, async (req, res) => {
             });
             await bucket.save();
 
-            chat.message_buckets.push(bucket._id);
+            chat.message_buckets.unshift(bucket._id);
 
             lastBucket = bucket;
         };
@@ -263,6 +263,8 @@ router.post("/chat/:chatId/message", auth, async (req, res) => {
         else {
             const bucket = await MessageBucketModel.findById(lastBucketId);
             if (!bucket) {
+                // TODO: lastBucketId is invalid - remove from chat.message_buckets
+                
                 // make a new bucket
                 await createNewBucket();
             }
@@ -281,7 +283,7 @@ router.post("/chat/:chatId/message", auth, async (req, res) => {
             return res.status(500).send();
         }
 
-        lastBucket.messages.push({
+        lastBucket.messages.unshift({
             content: req.body.message,
             sender: user._id
         });
@@ -347,6 +349,7 @@ router.get("/chat/:chatId/messages", auth, async (req, res) => {
         pipeline.append({
             $limit: limit
         });
+
     }
     catch (err) {
         console.log(err);
