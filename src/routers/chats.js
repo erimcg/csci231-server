@@ -268,7 +268,7 @@ router.post("/chat/:chatId/message", auth, async (req, res) => {
                 // make a new bucket
                 await createNewBucket();
             }
-            else if (bucket.size >= 4) {
+            else if (bucket.size >= 10) {
                 // make a new bucket
                 await createNewBucket();
             }
@@ -347,7 +347,8 @@ router.get("/chat/:chatId/messages", auth, async (req, res) => {
         let limit = req.query.limit ? parseInt(req.query.limit) : 10;
         if (limit > 10) limit = 10;
         pipeline.append({
-            $limit: limit
+            $limit: limit,
+            $sort: { createdAt: -1 }
         });
 
     }
