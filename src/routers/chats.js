@@ -347,8 +347,11 @@ router.get("/chat/:chatId/messages", auth, async (req, res) => {
         let limit = req.query.limit ? parseInt(req.query.limit) : 10;
         if (limit > 10) limit = 10;
         pipeline.append({
-            $limit: limit,
-            $sort: { createdAt: -1 }
+            $limit: limit
+        });
+
+        pipeline.append({
+            $sort: { createAt: -1 }
         });
 
     }
