@@ -338,9 +338,6 @@ router.get("/chat/:chatId/messages", auth, async (req, res) => {
     ]);
 
     try {
-        // pipeline.append({
-        //     $sort: { createAt: -1 }
-        // })
 
         if (req.query.skip) {
             pipeline.append({
@@ -353,6 +350,10 @@ router.get("/chat/:chatId/messages", auth, async (req, res) => {
                 $limit: parseInt(req.query.limit)
             });
         }
+
+        pipeline.append({
+            $sort: { createAt: 1 }
+        })
     }
     catch (err) {
         console.log(err);
