@@ -352,7 +352,7 @@ router.get("/chat/:chatId/messages", auth, async (req, res) => {
         }
 
         pipeline.append({
-            $sort: { createAt: 1 }
+            $sort: { "messages.createdAt": 1 }
         })
     }
     catch (err) {
